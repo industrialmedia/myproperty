@@ -1,0 +1,91 @@
+entity.myproperty.collection:
+  path: '/admin/content/myproperty'
+  defaults:
+    _entity_list: 'myproperty'
+    _title: 'List properties'
+  requirements:
+    _permission: 'administer myproperty entity'
+
+entity.myproperty.canonical:
+  path: '/admin/content/myproperty/{myproperty}/edit'
+  defaults:
+    _entity_form: myproperty.edit
+    _title: 'Edit property'
+  requirements:
+    _entity_access: 'myproperty.edit'
+
+entity.myproperty.edit_form:
+  path: '/admin/content/myproperty/{myproperty}/edit'
+  defaults:
+    _entity_form: myproperty.edit
+    _title: 'Edit property'
+  requirements:
+    _entity_access: 'myproperty.edit'
+
+entity.myproperty.add_form:
+  path: '/admin/content/myproperty/add'
+  defaults:
+    _entity_form: myproperty.add
+    _title: 'Add property'
+  requirements:
+    _entity_create_access: 'myproperty'
+
+entity.myproperty.delete_form:
+  path: '/admin/content/myproperty/{myproperty}/delete'
+  defaults:
+    _entity_form: myproperty.delete
+    _title: 'Delete property'
+  requirements:
+    _entity_access: 'myproperty.delete'
+
+entity.myproperty.list_property_values:
+  path: '/admin/content/myproperty/{myproperty}'
+  defaults:
+    _entity_list: 'myproperty_value'
+    _title_callback: '\Drupal\myproperty\Controller\MypropertyController::listPropertyValuesTitle'
+  requirements:
+    _permission: 'view myproperty entity'
+
+
+
+
+
+
+
+
+entity.myproperty_value.add_form:
+  path: '/admin/content/myproperty/{myproperty}/add'
+  defaults:
+    _entity_form: myproperty_value.add
+    _title: 'Add property value'
+  requirements:
+    _entity_create_access: 'myproperty_value'
+
+entity.myproperty_value.delete_form:
+  path: '/admin/content/myproperty_value/{myproperty_value}/delete'
+  defaults:
+    _entity_form: myproperty_value.delete
+    _title: 'Delete property value'
+  requirements:
+    _entity_access: 'myproperty_value.delete'
+
+
+
+entity.myproperty_value.canonical:
+  path: '/admin/content/myproperty_value/{myproperty_value}/edit'
+  defaults:
+    _entity_form: myproperty_value.edit
+    _title: 'Edit property value'
+  requirements:
+    _entity_access: 'myproperty_value.edit'
+
+entity.myproperty_value.edit_form:
+  path: '/admin/content/myproperty_value/{myproperty_value}/edit'
+  defaults:
+    _entity_form: myproperty_value.edit
+    _title: 'Edit property value'
+  requirements:
+    _entity_access: 'myproperty_value.edit'
+
+
+

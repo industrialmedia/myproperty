@@ -1,0 +1,9 @@
+name: myproperty
+description: my property settings
+package: AAMID
+type: module
+core: '8.x'
+version: '1.0'
+interface translation project: myproperty
+interface translation server pattern: modules/custom/myproperty/%project-%version.%language.po
+

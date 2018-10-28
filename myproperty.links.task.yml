@@ -1,0 +1,23 @@
+entity.myproperty.collection:
+  route_name: entity.myproperty.collection
+  title: 'Properties'
+  base_route: entity.myproperty.collection
+
+entity.myproperty.edit_form:
+  route_name: entity.myproperty.edit_form
+  base_route: entity.myproperty.edit_form
+  title: Edit
+
+entity.myproperty.delete_form:
+  route_name:  entity.myproperty.delete_form
+  base_route:  entity.myproperty.edit_form
+  title: Delete
+  weight: 10
+
+
+entity.myproperty.list_property_values:
+  route_name: entity.myproperty.list_property_values
+  title: 'Property values'
+  base_route: entity.myproperty.list_property_values
+
+

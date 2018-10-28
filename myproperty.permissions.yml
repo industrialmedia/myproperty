@@ -1,0 +1,26 @@
+administer myproperty entity:
+  title: 'Administer myproperty entity'
+  restrict access: TRUE
+
+view myproperty entity:
+  title: 'View myproperty entity'
+add myproperty entity:
+  title: 'Add myproperty entity'
+edit myproperty entity:
+  title: 'Edit myproperty Entity'
+delete myproperty entity:
+  title: 'Delete myproperty entity'
+
+
+administer myproperty_value entity:
+  title: 'Administer myproperty_value entity'
+  restrict access: TRUE
+
+view myproperty_value entity:
+  title: 'View myproperty_value entity'
+add myproperty_value entity:
+  title: 'Add myproperty_value entity'
+edit myproperty_value entity:
+  title: 'Edit myproperty_value Entity'
+delete myproperty_value entity:
+  title: 'Delete myproperty_value entity'

@@ -1,0 +1,43 @@
+
+msgid "Add property"
+msgstr "Добавить характеристику"
+
+msgid "Property name"
+msgstr "Название"
+
+msgid "List properties"
+msgstr "Характеристики"
+
+msgid "Edit property"
+msgstr "Редактировать"
+
+msgid "The property has been add."
+msgstr "Характеристику успешно добавлено."
+
+msgid "The property has been updated."
+msgstr "Характеристика успешно обновлена."
+
+msgid "Add property"
+msgstr "Добавить характеристику"
+
+msgid "List property values"
+msgstr "Список значений"
+
+msgid "List property values"
+msgstr "Список значений"
+
+msgid "Add property value"
+msgstr "Добавить значение"
+
+msgid "The property value has been add."
+msgstr "Значение успешно добавлено."
+
+msgid "The property value has been updated."
+msgstr "Значение успешно обновлено."
+
+msgid "Myproperty entity"
+msgstr "Характеристика"
+
+
+
+

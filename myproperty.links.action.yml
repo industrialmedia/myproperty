@@ -1,0 +1,12 @@
+entity.myproperty.add_form:
+  route_name: entity.myproperty.add_form
+  title: 'Add property'
+  appears_on:
+    - entity.myproperty.collection
+
+entity.myproperty_value.add_form:
+  route_name: entity.myproperty_value.add_form
+  title: 'Add property value'
+  appears_on:
+    - entity.myproperty.list_property_values
+

@@ -1,0 +1,7 @@
+entity.myproperty.collection:
+  title: 'List propertes'
+  route_name: entity.myproperty.collection
+  parent: system.admin_content
+  description: 'List properties.'
+  weight: 50
+
