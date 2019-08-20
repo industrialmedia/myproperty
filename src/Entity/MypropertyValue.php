@@ -10,6 +10,7 @@ use Drupal\myproperty\MypropertyValueInterface;
 use Drupal\user\UserInterface;
 
 
+
 /**
  * Defines the MypropertyValue entity.
  *
@@ -60,15 +61,7 @@ use Drupal\user\UserInterface;
  */
 class MypropertyValue extends ContentEntityBase implements MypropertyValueInterface {
 
-  /**
-   * {@inheritdoc}
-   */
-  public static function preCreate(EntityStorageInterface $storage_controller, array &$values) {
-    parent::preCreate($storage_controller, $values);
-    $values += array(
-      'uid' => \Drupal::currentUser()->id(),
-    );
-  }
+
 
 
   /**
@@ -206,6 +199,51 @@ class MypropertyValue extends ContentEntityBase implements MypropertyValueInterf
   /**
    * {@inheritdoc}
    */
+  public function getMachineName() {
+    return $this->get('machine_name')->value;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setMachineName($machine_name) {
+    $this->set('machine_name', $machine_name);
+    return $this;
+  }
+
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function loadByMachineName($machine_name) {
+    $myproperty_values = \Drupal::entityTypeManager()
+      ->getStorage('myproperty_value')
+      ->loadByProperties(['machine_name' => $machine_name]);
+    if (empty($myproperty_values)) {
+      return NULL;
+    }
+    return reset($myproperty_values);
+  }
+
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function loadByMachineNameAndPropertyId($machine_name, $property_id) {
+    $myproperty_values = \Drupal::entityTypeManager()
+      ->getStorage('myproperty_value')
+      ->loadByProperties(['machine_name' => $machine_name, 'property_id' => $property_id]);
+    if (empty($myproperty_values)) {
+      return NULL;
+    }
+    return reset($myproperty_values);
+  }
+
+
+
+  /**
+   * {@inheritdoc}
+   */
   public static function baseFieldDefinitions(EntityTypeInterface $entity_type) {
     /** @var \Drupal\Core\Field\BaseFieldDefinition[] $fields */
     $fields = parent::baseFieldDefinitions($entity_type);
@@ -218,6 +256,10 @@ class MypropertyValue extends ContentEntityBase implements MypropertyValueInterf
         'weight' => 0,
       ))
       ->setDisplayConfigurable('form', TRUE);
+    $fields['machine_name'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('Machine name'))
+      ->setRequired(TRUE)
+      ->setSetting('max_length', 255);
     $fields['uid'] = BaseFieldDefinition::create('entity_reference')
       ->setLabel(t('User Name'))
       ->setSetting('target_type', 'user')
@@ -249,6 +291,42 @@ class MypropertyValue extends ContentEntityBase implements MypropertyValueInterf
       ->setDisplayConfigurable('form', TRUE);
     return $fields;
   }
+
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function preCreate(EntityStorageInterface $storage_controller, array &$values) {
+    parent::preCreate($storage_controller, $values);
+    $values += array(
+      'uid' => \Drupal::currentUser()->id(),
+    );
+  }
+
+
+  /**
+   * {@inheritdoc}
+   */
+  public function preSave(EntityStorageInterface $storage) {
+    parent::preSave($storage);
+    $machine_name = $this->getMachineName();
+    if (empty($machine_name)) {
+      $name = $this->getName();
+      $name_translit = _myproperty_transliterate($name);
+      $machine_name = $name_translit;
+      $i = 2;
+      while ($myproperty_value = MypropertyValue::loadByMachineNameAndPropertyId($machine_name, $this->getPropertyId())) {
+        $machine_name = $name_translit . '-' . $i;
+        $i++;
+      }
+      $this->setMachineName($machine_name);
+    }
+  }
+
+
+
+
+
 
 
 }

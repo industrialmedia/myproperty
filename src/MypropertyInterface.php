@@ -61,8 +61,40 @@ interface MypropertyInterface extends ContentEntityInterface, EntityOwnerInterfa
    *   The called myproperty entity.
    */
   public function setName($name);
-  
-  
+
+
+
+  /**
+   * Gets the machine_name.
+   *
+   * @return string
+   *   machine_name of the myproperty.
+   */
+  public function getMachineName();
+
+  /**
+   * Sets the myproperty machine_name.
+   *
+   * @param string $machine_name
+   *   The myproperty machine_name.
+   *
+   * @return \Drupal\myproperty\MypropertyInterface
+   *   The called myproperty entity.
+   */
+  public function setMachineName($machine_name);
+
+
+
+  /**
+   * Load the myproperty by machine_name.
+   *
+   * @param string $machine_name
+   *   The myproperty machine_name.
+   *
+   * @return \Drupal\myproperty\MypropertyInterface
+   *   The called myproperty entity.
+   */
+  public static function loadByMachineName($machine_name);
   
 }
 

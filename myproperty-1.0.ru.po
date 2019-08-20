@@ -1,4 +1,7 @@
 
+msgid "Name"
+msgstr "Название"
+
 msgid "Add property"
 msgstr "Добавить характеристику"
 

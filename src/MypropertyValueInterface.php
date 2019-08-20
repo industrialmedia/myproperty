@@ -81,8 +81,55 @@ interface MypropertyValueInterface extends ContentEntityInterface, EntityOwnerIn
    *   The called myproperty_value entity.
    */
   public function setName($name);
-    
-    
+
+
+  /**
+   * Gets the machine_name.
+   *
+   * @return string
+   *   machine_name of the myproperty_value.
+   */
+  public function getMachineName();
+
+  /**
+   * Sets the myproperty_value machine_name.
+   *
+   * @param string $machine_name
+   *   The myproperty_value machine_name.
+   *
+   * @return \Drupal\myproperty\MypropertyValueInterface
+   *   The called myproperty_value entity.
+   */
+  public function setMachineName($machine_name);
+
+
+
+  /**
+   * Load the myproperty_value by machine_name.
+   *
+   * @param string $machine_name
+   *   The myproperty_value machine_name.
+   *
+   * @return \Drupal\myproperty\MypropertyValueInterface
+   *   The called myproperty_value entity.
+   */
+  public static function loadByMachineName($machine_name);
+
+
+
+  /**
+   * Load the myproperty_value by machine_name and property_id.
+   *
+   * @param string $machine_name
+   *   The myproperty_value machine_name.
+   * @param int $property_id
+   *   The myproperty_value property_id.
+   *
+   * @return \Drupal\myproperty\MypropertyValueInterface
+   *   The called myproperty_value entity.
+   */
+  public static function loadByMachineNameAndPropertyId($machine_name, $property_id);
+
 }
 
 

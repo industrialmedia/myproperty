@@ -55,6 +55,7 @@ class MypropertyValueListBuilder extends EntityListBuilder {
    */
   public function buildHeader() {
     $header['name'] = $this->t('Name');
+    $header['machine_name'] = $this->t('Machine name');
     return $header + parent::buildHeader();
   }
 
@@ -65,6 +66,7 @@ class MypropertyValueListBuilder extends EntityListBuilder {
     /* @var $myproperty \Drupal\myproperty\Entity\Myproperty */
     $row = [];
     $row['name'] = $myproperty->getName();
+    $row['machine_name'] = $myproperty->getMachineName();
     return $row + parent::buildRow($myproperty);
   }
 

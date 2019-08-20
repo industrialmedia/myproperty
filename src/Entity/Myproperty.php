@@ -8,7 +8,7 @@ use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\myproperty\MypropertyInterface;
 use Drupal\user\UserInterface;
-use Drupal\myproperty\MypropertyStorageInterface;
+
 
 /**
  * Defines the Myproperty entity.
@@ -60,16 +60,6 @@ use Drupal\myproperty\MypropertyStorageInterface;
  *  *     "view_builder" = "Drupal\Core\Entity\EntityViewBuilder",
  */
 class Myproperty extends ContentEntityBase implements MypropertyInterface {
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function preCreate(EntityStorageInterface $storage_controller, array &$values) {
-    parent::preCreate($storage_controller, $values);
-    $values += array(
-      'uid' => \Drupal::currentUser()->id(),
-    );
-  }
 
 
   /**
@@ -175,6 +165,36 @@ class Myproperty extends ContentEntityBase implements MypropertyInterface {
   /**
    * {@inheritdoc}
    */
+  public function getMachineName() {
+    return $this->get('machine_name')->value;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setMachineName($machine_name) {
+    $this->set('machine_name', $machine_name);
+    return $this;
+  }
+
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function loadByMachineName($machine_name) {
+    $myproperties = \Drupal::entityTypeManager()
+      ->getStorage('myproperty')
+      ->loadByProperties(['machine_name' => $machine_name]);
+    if (empty($myproperties)) {
+      return NULL;
+    }
+    return reset($myproperties);
+  }
+
+
+  /**
+   * {@inheritdoc}
+   */
   public static function baseFieldDefinitions(EntityTypeInterface $entity_type) {
     /** @var \Drupal\Core\Field\BaseFieldDefinition[] $fields */
     $fields = parent::baseFieldDefinitions($entity_type);
@@ -187,6 +207,10 @@ class Myproperty extends ContentEntityBase implements MypropertyInterface {
         'weight' => 0,
       ))
       ->setDisplayConfigurable('form', TRUE);
+    $fields['machine_name'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('Machine name'))
+      ->setRequired(TRUE)
+      ->setSetting('max_length', 255);
     $fields['uid'] = BaseFieldDefinition::create('entity_reference')
       ->setLabel(t('User Name'))
       ->setSetting('target_type', 'user')
@@ -213,10 +237,48 @@ class Myproperty extends ContentEntityBase implements MypropertyInterface {
   /**
    * {@inheritdoc}
    */
-  public static function preDelete(EntityStorageInterface $storage, array $entities) {
-    parent::preDelete($storage, $entities);
-    entity_delete_multiple('myproperty_value', $storage->getMypropertyValueIdsByMypropertyIds(array_keys($entities)));
+  public static function preCreate(EntityStorageInterface $storage_controller, array &$values) {
+    parent::preCreate($storage_controller, $values);
+    $values += array(
+      'uid' => \Drupal::currentUser()->id(),
+    );
   }
 
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function preDelete(EntityStorageInterface $storage, array $entities) {
+    parent::preDelete($storage, $entities);
+
+    /* @var \Drupal\myproperty\MypropertyStorage $storage */
+    $myproperty_value_ids = $storage->getMypropertyValueIdsByMypropertyIds(array_keys($entities));
+
+    /* @var \Drupal\myproperty\MypropertyValueStorage $myproperty_value_storage */
+    $myproperty_value_storage = \Drupal::entityTypeManager()->getStorage('myproperty_value');
+    $myproperty_values = $myproperty_value_storage->loadMultiple($myproperty_value_ids);
+    $myproperty_value_storage->delete($myproperty_values);
+    
+  }
+
+
+  /**
+   * {@inheritdoc}
+   */
+  public function preSave(EntityStorageInterface $storage) {
+    parent::preSave($storage);
+    $machine_name = $this->getMachineName();
+    if (empty($machine_name)) {
+      $name = $this->getName();
+      $name_translit = _myproperty_transliterate($name);
+      $machine_name = $name_translit;
+      $i = 2;
+      while ($myproperty = Myproperty::loadByMachineName($machine_name)) {
+        $machine_name = $name_translit . '-' . $i;
+        $i++;
+      }
+      $this->setMachineName($machine_name);
+    }
+  }
 
 }

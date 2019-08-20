@@ -1,12 +1,16 @@
 <?php
 
 
-
-
-
-
-
-
-
-
-
+function _myproperty_transliterate($text) {
+  $langcode = \Drupal::languageManager()->getCurrentLanguage()->getId();
+  $transliteration = \Drupal::transliteration();
+  $transliterated = $transliteration->transliterate($text, $langcode, '_');
+  $transliterated = mb_strtolower($transliterated);
+  $replace_pattern = '[^a-z0-9-]+';
+  $replace = '-';
+  $transliterated = preg_replace('@' . strtr($replace_pattern, [
+      '@' => '\@',
+      chr(0) => ''
+    ]) . '@', $replace, $transliterated);
+  return $transliterated;
+}

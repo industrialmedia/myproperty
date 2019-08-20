@@ -18,7 +18,7 @@ class MypropertyValueDeleteForm extends ContentEntityDeleteForm {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     parent::submitForm($form, $form_state);
-    /* @var $myproperty_value \Drupal\myproperty\Entity\MypropertyValue */
+    /* @var \Drupal\myproperty\Entity\MypropertyValue $myproperty_value */
     $myproperty_value = $this->getEntity();
     $form_state->setRedirect('entity.myproperty.list_property_values', ['myproperty' => $myproperty_value->getPropertyId()]);
   }

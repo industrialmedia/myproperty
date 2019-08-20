@@ -1,5 +1,5 @@
 entity.myproperty.collection:
-  title: 'List propertes'
+  title: 'List properties'
   route_name: entity.myproperty.collection
   parent: system.admin_content
   description: 'List properties.'
