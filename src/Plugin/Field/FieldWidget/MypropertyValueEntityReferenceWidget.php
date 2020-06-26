@@ -77,8 +77,8 @@ class MypropertyValueEntityReferenceWidget extends WidgetBase implements Contain
       $configuration['field_definition'],
       $configuration['settings'],
       $configuration['third_party_settings'],
-      $container->get('entity.manager')->getStorage('myproperty'),
-      $container->get('entity.manager')->getStorage('myproperty_value')
+      $container->get('entity_type.manager')->getStorage('myproperty'),
+      $container->get('entity_type.manager')->getStorage('myproperty_value')
     );
   }
 
