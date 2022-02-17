@@ -201,6 +201,7 @@ class Myproperty extends ContentEntityBase implements MypropertyInterface {
     $fields['name'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Property name'))
       ->setRequired(TRUE)
+      ->setTranslatable(TRUE)
       ->setSetting('max_length', 255)
       ->setDisplayOptions('form', array(
         'type' => 'string_textfield',
