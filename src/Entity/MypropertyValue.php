@@ -23,7 +23,7 @@ use Drupal\user\UserInterface;
  *     "storage" = "Drupal\myproperty\MypropertyValueStorage",
  *     "storage_schema" = "Drupal\myproperty\MypropertyValueStorageSchema",
  *     "list_builder" = "Drupal\myproperty\MypropertyValueListBuilder",
- *     "views_data" = "Drupal\views\EntityViewsData",
+ *     "views_data" = "Drupal\myproperty\MypropertyValueViewsData",
  *     "form" = {
  *       "add" = "Drupal\myproperty\MypropertyValueForm",
  *       "edit" = "Drupal\myproperty\MypropertyValueForm",
